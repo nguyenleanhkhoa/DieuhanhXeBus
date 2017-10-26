@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.admin.dieuhanhxebus.Lichlamnhanvien">
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="30dp"
+            android:textSize="30dp"
+            android:text="Lịch làm việc "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:background="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+        <TextView
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:id="@+id/lichtenNv"
+            android:paddingLeft="30dp"
+            android:text="Tên nhân viên "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/lichchucvu"
+            android:layout_marginBottom="5dp"
+            android:textSize="20dp"
+            android:paddingLeft="30dp"
+            android:text="Chức vụ"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:background="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+        <ListView
+            android:id="@+id/listlichlamviec"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+    </LinearLayout>
+</LinearLayout>

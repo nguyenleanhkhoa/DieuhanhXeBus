@@ -1,0 +1,132 @@
+package com.example.admin.dieuhanhxebus;
+
+import android.app.Dialog;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import Adapter.AdapterBusList;
+import DatabaseAdapter.DatabaseAdapter;
+import Model.Bus;
+import ModelGroup.RouteBus;
+
+public class Bus_List extends AppCompatActivity {
+    String DATABASE_NAME="BusManager.sqlite";
+    SQLiteDatabase database;
+    ListView list_Bus;
+    ArrayList<RouteBus> Buslist;
+    AdapterBusList adapterBusList;
+
+    AutoCompleteTextView autosearchBus;
+    Button btntimbus;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_bus__list);
+        addControl();
+        addEvent();
+        GetBusDatabaseContext();
+
+
+
+        list_Bus.setAdapter(adapterBusList);
+
+    }
+
+    private void addEvent() {
+
+    }
+
+
+    private void addControl() {
+        autosearchBus= (AutoCompleteTextView) findViewById(R.id.autosearchbus);
+        btntimbus= (Button) findViewById(R.id.btntimxeBus);
+        list_Bus= (ListView) findViewById(R.id.listBus);
+        Buslist=new ArrayList<>();
+        adapterBusList=new AdapterBusList(Bus_List.this,R.layout.item_bus,Buslist);
+        btntimbus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!TextUtils.isEmpty(autosearchBus.getText().toString())){
+                    adapterBusList.clear();
+                    int maBus=Integer.parseInt(autosearchBus.getText().toString());
+                    GetBusDatabaseContext(maBus);
+                }else{
+                    adapterBusList.clear();
+                    GetBusDatabaseContext();
+                }
+            }
+        });
+
+    }
+    public void GetBusDatabaseContext(){
+        database= DatabaseAdapter.initDatabase(Bus_List.this,DATABASE_NAME);
+        Cursor cursor=database.rawQuery("SELECT b.Bus_id,b.Bus_number,b.Bus_sign,s.route_Id,s.time,r.route " +
+                                        "FROM Bus b ,BusSchedule  s ,Route r " +
+                                         "group by b.Bus_id  ",null);
+        while (cursor.moveToNext()){
+            int maXeBus=cursor.getInt(0);
+            int soXeBus=cursor.getInt(1);
+            int matuyen=cursor.getInt(2);
+            String bienso=cursor.getString(3);
+            String thoigian=cursor.getString(4);
+            String tuyenduong=cursor.getString(5);
+            Toast.makeText(this, ""+tuyenduong, Toast.LENGTH_SHORT).show();
+
+            RouteBus bus=new RouteBus();
+            bus.setMaXeBus(maXeBus);
+            bus.setSoXeBus(soXeBus);
+            bus.setMaTx(matuyen);
+            bus.setBiensoxeBus(bienso);
+            bus.setGioChay(thoigian);
+            bus.setTuyenXe(tuyenduong);
+            Buslist.add(bus);
+
+        }
+        adapterBusList.notifyDataSetChanged();
+
+    }
+    public void GetBusDatabaseContext(int busid){
+        database= DatabaseAdapter.initDatabase(Bus_List.this,DATABASE_NAME);
+        Cursor cursor=database.rawQuery("SELECT b.Bus_id,b.Bus_number,b.Bus_sign,s.route_Id,s.time,r.route " +
+                "FROM Bus b ,BusSchedule  s ,Route r " +
+                "Where b.Bus_id ="+busid+"\n"+
+                "group by b.Bus_id  ",null);
+        while (cursor.moveToNext()){
+            int maXeBus=cursor.getInt(0);
+            int soXeBus=cursor.getInt(1);
+            int matuyen=cursor.getInt(2);
+            String bienso=cursor.getString(3);
+            String thoigian=cursor.getString(4);
+            String tuyenduong=cursor.getString(5);
+            Toast.makeText(this, ""+tuyenduong, Toast.LENGTH_SHORT).show();
+
+            RouteBus bus=new RouteBus();
+            bus.setMaXeBus(maXeBus);
+            bus.setSoXeBus(soXeBus);
+            bus.setMaTx(matuyen);
+            bus.setBiensoxeBus(bienso);
+            bus.setGioChay(thoigian);
+            bus.setTuyenXe(tuyenduong);
+            Buslist.add(bus);
+
+        }
+        adapterBusList.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+}

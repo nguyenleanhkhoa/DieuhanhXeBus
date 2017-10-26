@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.admin.dieuhanhxebus.ThemNhanvien">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingBottom="20dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:background="@drawable/taxidriver"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:textColor="#363636"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="20dp"
+                    android:text="Thêm nhân viên mới"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"/>
+            </LinearLayout>
+            <EditText
+                android:id="@+id/edtIdEmpl"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:hint="Id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edtusernameEmpl"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:hint="user name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp">
+                <TextView
+                    android:textSize="15dp"
+                    android:gravity="center"
+                    android:text="Chức vụ:"
+                    android:layout_weight="4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+                <Spinner
+                    android:id="@+id/spinDepart"
+                    android:layout_width="0dp"
+                    android:layout_weight="6"
+                    android:layout_height="wrap_content"></Spinner>
+            </LinearLayout>
+            <EditText
+                android:id="@+id/edtemailEmpl"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:hint="Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edtpasswordEmpl"
+                android:inputType="textPassword"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:hint="Password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <EditText
+                android:id="@+id/edtbirthdayEmpl"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:hint="Birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <EditText
+                android:id="@+id/edtaddressEmpl"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:hint="Address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edtphoneEmpl"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:hint="Phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btncreateEmpl"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="10dp"
+                android:background="#363636"
+                android:text="Thêm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btncancelEmpl"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="5dp"
+                android:background="#363636"
+                android:text="Thoát"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

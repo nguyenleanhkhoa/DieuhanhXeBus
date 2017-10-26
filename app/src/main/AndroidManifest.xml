@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.admin.dieuhanhxebus">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Login"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Notification"
+            android:label="Thông báo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:label="Danh sách xe bus"
+            android:name=".Bus_List"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+
+            android:name=".Thongtincanhan"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:label="Danh sách nhân viên"
+            android:name=".ListNhanvien" />
+        <activity
+            android:label="Nhập thông báo"
+            android:name=".Vietthongbao" />
+        <activity
+            android:label="Nhập nhân viên"
+            android:name=".ThemNhanvien" />
+        <activity
+            android:label="Lịch làm việc "
+            android:name=".Lichlamnhanvien" />
+    </application>
+
+</manifest>
