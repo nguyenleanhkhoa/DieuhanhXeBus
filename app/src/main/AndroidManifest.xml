@@ -25,7 +25,7 @@
         <activity
             android:label="Danh sách xe bus"
             android:name=".Bus_List"
-            android:theme="@style/AppTheme.NoActionBar" />
+           />
         <activity
 
             android:name=".Thongtincanhan"

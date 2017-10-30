@@ -9,6 +9,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,9 +19,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 import Adapter.AdapterEmployer;
 import DatabaseAdapter.DatabaseAdapter;
@@ -80,14 +85,7 @@ public class ListNhanvien extends AppCompatActivity {
       btnSearch.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-             if(!TextUtils.isEmpty(autoSearchText.getText().toString())){
-                 adapterEmployer.clear();
-                 GetDataNhanvienContextPosition(autoSearchText.getText().toString());
-             }
-             else{
-                 adapterEmployer.clear();
-                 GetDataNhanvienContext();
-             }
+
           }
       });
 
@@ -151,6 +149,36 @@ public class ListNhanvien extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.seach_menu,menu);
+        MenuItem menuItem=menu.findItem(R.id.searchViewid);
+        SearchView searchView= (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Tìm nhân viên....");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(!TextUtils.isEmpty(newText.toString())){
+                    adapterEmployer.clear();
+                    GetDataNhanvienContextPosition(newText);
+                    return true;
+                }
+                else{
+                    adapterEmployer.clear();
+                    GetDataNhanvienContext();
+                    return true;
+                }
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
     private void GetDataNhanvienContext() {
         database=DatabaseAdapter.initDatabase(ListNhanvien.this,DATABASE_NAME);
         Cursor cursor=database.rawQuery("SELECT * FROM Employer",null);
@@ -170,8 +198,9 @@ public class ListNhanvien extends AppCompatActivity {
         adapterEmployer.notifyDataSetChanged();
     }
     private void GetDataNhanvienContextPosition(String name) {
+
         database=DatabaseAdapter.initDatabase(ListNhanvien.this,DATABASE_NAME);
-        Cursor cursor=database.rawQuery("SELECT * FROM Employer Where Employer.employer_Name like '"+name+"'",null);
+        Cursor cursor=database.rawQuery("SELECT * FROM Employer Where Employer.employer_Name like '"+"%"+name+"%"+"'",null);
         while(cursor.moveToNext()){
             int maNV=cursor.getInt(0);
             String passNV=cursor.getString(1);

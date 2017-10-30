@@ -6,11 +6,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -96,11 +100,43 @@ public class Bus_List extends AppCompatActivity {
         adapterBusList.notifyDataSetChanged();
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.seach_menu,menu);
+        MenuItem menuItem=menu.findItem(R.id.searchViewid);
+        SearchView searchView= (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Tìm Xe bus....");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(!TextUtils.isEmpty(newText.toString())){
+                    adapterBusList.clear();
+                    GetBusDatabaseContext(Integer.parseInt(newText));
+                    return true;
+                }
+                else{
+                    adapterBusList.clear();
+                    GetBusDatabaseContext();
+                    return true;
+                }
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+
     public void GetBusDatabaseContext(int busid){
         database= DatabaseAdapter.initDatabase(Bus_List.this,DATABASE_NAME);
         Cursor cursor=database.rawQuery("SELECT b.Bus_id,b.Bus_number,b.Bus_sign,s.route_Id,s.time,r.route " +
                 "FROM Bus b ,BusSchedule  s ,Route r " +
-                "Where b.Bus_id ="+busid+"\n"+
+                "Where b.Bus_number ="+busid+"\n"+
                 "group by b.Bus_id  ",null);
         while (cursor.moveToNext()){
             int maXeBus=cursor.getInt(0);
